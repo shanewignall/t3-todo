@@ -1,4 +1,3 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
@@ -7,7 +6,6 @@ import {
 } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import { env } from "~/env.mjs";
-import { prisma } from "~/server/db";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -45,7 +43,6 @@ export const authOptions: NextAuthOptions = {
       },
     })
   },
-  adapter: PrismaAdapter(prisma),
   providers: [
     GitHubProvider({
       clientId: env.GITHUB_CLIENT_ID,
@@ -54,7 +51,7 @@ export const authOptions: NextAuthOptions = {
     /**
      * ...add more providers here.
      *
-     * Most other providers require a bit more work than the Discord provider. For example, the
+     * Most other providers require a bit more work than the GITHUB provider. For example, the
      * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
      * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
      *
